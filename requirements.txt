@@ -1,0 +1,4 @@
+os
+flask
+psycopg2
+gunicorn
