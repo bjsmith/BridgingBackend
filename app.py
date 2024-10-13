@@ -52,9 +52,6 @@ def survey_redirect():
     #redirect back to the survey 
     return redirect(SURVEY_BASE_URL + "?" + query_string)
 
-#http://127.0.0.1:5000/survey_redirect?a=1&b=c
-#https://oregon.qualtrics.com/jfe/form/SV_806KmYhBuQ7pggu?a=1&b=c&username=hardknocksafterhours&videoid=7194582568740736299&username=reberrabon_bon&videoid=7194145337286675754&username=realdoobydo&videoid=7193835310747307307&username=theconversationalist&videoid=7193063670388247850&username=europeonamerica&videoid=7190753046014463278&username=europeonamerica&videoid=7190752312086842670&username=europeonamerica&videoid=7190751955499928878&username=equalrightsinstitute&videoid=7194523219448302894&username=is.this.f.r&videoid=7194220617733000494&username=_cal_cifer&videoid=7194171767366225198
-
 # virtualenv --python="/usr/local/bin/python3" 
 # run the app
 if __name__ == '__main__':
