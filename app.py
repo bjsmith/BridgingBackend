@@ -16,6 +16,9 @@ SURVEY_BASE_URL = os.getenv('SURVEY_BASE_URL')
 
 conn = psycopg2.connect(DATABASE_URL)
 
+@app.route("/")
+def helloworld():
+    return "Hello World!"
 
 @app.route('/survey_redirect', methods=['GET'])
 def survey_redirect():
