@@ -2,20 +2,27 @@ WITH selected_genres AS (
     -- Step 1: Randomly select a limited number of genres
     SELECT genre_id
     FROM genres
-    GROUP BY genre_id
     ORDER BY RANDOM()
     LIMIT 5  -- Change this number to limit how many genres you want to randomly select
 ),
+all_videos_randomized AS(
+    -- Step 2: Randomize the order of all the videos present
+	SELECT * 
+	FROM videos v
+	WHERE v.access_count <= 10
+	ORDER BY v.genre_id, RANDOM()
+),
 selected_videos AS (
-    -- Step 2: For each selected genre, pick one random video with access_count <= 10
-    SELECT DISTINCT ON (t.genre_id) t.video_id, t.genre_id, t.access_count
-    FROM videos t
-    JOIN selected_genres sg ON t.genre_id = sg.genre_id
-    WHERE t.access_count <= 10
-    ORDER BY t.genre_id, RANDOM()
+    -- Step 3: For each selected genre, pick one random video with access_count <= 10
+    SELECT DISTINCT ON (v.genre_id) v.video_id, v.genre_id, v.access_count
+    FROM all_videos_randomized v
+	--must use inner join to select just the videos associated with the selected genres
+    INNER JOIN selected_genres sg ON v.genre_id = sg.genre_id 
+	ORDER BY v.genre_id
+	--does the order by work correctly?
 ),
 updated_videos AS (
-    -- Step 3: Update the access_count for each selected video
+    -- Step 4: Update the access_count for each selected video
     UPDATE videos
     SET access_count = access_count + 1
     WHERE video_id IN (SELECT video_id FROM selected_videos)
